@@ -9,11 +9,11 @@
       window.GLOBAL_CONFIG = {
         SCF_GATEWAY: "https://onedrive.wowasd.workers.dev/,
         SITE_NAME: "FODI",
-        IS_CF: true,
+        IS_CF: false,
       };
       if (window.GLOBAL_CONFIG.SCF_GATEWAY.indexOf("workers") === -1) {
         window.GLOBAL_CONFIG.SCF_GATEWAY += "/fodi/";
-        window.GLOBAL_CONFIG.IS_CF = true;
+        window.GLOBAL_CONFIG.IS_CF = false;
       }
       // if (location.protocol === 'http:') {
       //     location.href = location.href.replace(/http/, 'https');
