@@ -11,36 +11,43 @@
         .then(response => response.json())
         .then(data => {
           // Parse and display the data
-          displayData(data);
+          displayFolders(data);
         })
         .catch(error => {
           console.error('Error fetching JSON data:', error);
         });
 
-      function displayData(data) {
+      function displayFolders(data) {
         // Access the files array from the JSON data
         const files = data.files;
 
-        // Display data on the webpage
-        const resultContainer = document.getElementById('result-container');
-        resultContainer.innerHTML = '<h2>File List:</h2>';
+        // Filter folders in the directory
+        const folders = files.filter(file => file.type === 'folder');
 
-        files.forEach(file => {
-          // Create a list item for each file
-          const listItem = document.createElement('li');
-          listItem.innerHTML = `<strong>Name:</strong> ${file.name}, <strong>Size:</strong> ${file.size}, <strong>Time:</strong> ${file.time}`;
-          
-          // If the file has a URL, create a download link
-          if (file.url) {
-            const downloadLink = document.createElement('a');
-            downloadLink.href = file.url;
-            downloadLink.innerText = 'Download';
-            listItem.appendChild(downloadLink);
-          }
+        if (folders.length > 0) {
+          // Display data on the webpage
+          const resultContainer = document.getElementById('result-container');
+          resultContainer.innerHTML = '<h2>List of Folders:</h2>';
 
-          // Append the list item to the result container
-          resultContainer.appendChild(listItem);
-        });
+          folders.forEach(folder => {
+            // Create a list item for each folder
+            const listItem = document.createElement('li');
+            listItem.innerHTML = `<strong>Name:</strong> ${folder.name}`;
+
+            // If the folder has a URL, you can add a link to access it
+            if (folder.url) {
+              const folderLink = document.createElement('a');
+              folderLink.href = folder.url;
+              folderLink.innerText = 'Access Folder';
+              listItem.appendChild(folderLink);
+            }
+
+            // Append the list item to the result container
+            resultContainer.appendChild(listItem);
+          });
+        } else {
+          console.warn('No folders found in the directory.');
+        }
       }
     });
   </script>
